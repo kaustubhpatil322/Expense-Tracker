@@ -4,6 +4,11 @@ from app.api.health import router as health_router
 from app.api.users import router as users_router
 from app.core.config import settings
 
+from app.models.user import User
+from app.db.database import Base, engine
+Base.metadata.create_all(bind=engine)
+
+
 app= FastAPI(title= settings.APP_NAME)
 
 app.include_router(health_router)
