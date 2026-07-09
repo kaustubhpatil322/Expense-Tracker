@@ -3,6 +3,7 @@ from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate
 from app.core.security import hash_password
 from app.models.user import User
+from pydantic import EmailStr
 
 
 class UserService:
@@ -29,5 +30,10 @@ class UserService:
     
     def delete_user_by_id(self , user_id:int):
         return self.repository.delete_by_id(user_id)
+    
+    def login_user(self , email:EmailStr): #ToBEcontinued ...
+        existing_user = self.repository.get_by_email(email)
+        if existing_user:
+            pass
       
         
