@@ -9,7 +9,7 @@ from app.db.database import Base, engine
 Base.metadata.create_all(bind=engine)
 
 
-app= FastAPI(title= settings.APP_NAME)
+app= FastAPI(title= settings.app_name)
 
 app.include_router(health_router)
 app.include_router(users_router)
