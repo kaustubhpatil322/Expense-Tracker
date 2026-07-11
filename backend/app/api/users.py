@@ -1,3 +1,4 @@
+from typing import Annotated
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -5,6 +6,8 @@ from app.db.database import get_db
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate , UserResponse, UserLogin
 from app.services.user_service import UserService
+from app.core.dependencies import get_current_user
+from app.models.user import User
 
 router = APIRouter(
     prefix="/users",
@@ -53,4 +56,10 @@ def login_user(
 ):
     service = UserService(db)
     return service.login_user(login_data)
+
+@router.get("/me")#current user
+def get_me(
+    current_user: Annotated[User , Depends(get_current_user)]#Alternante and cleaner way of writing -  "Sesion= Depends(get_db)"
+):
+    return current_user
     

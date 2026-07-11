@@ -38,7 +38,7 @@ class UserService:
         if existing_user:
             password_check=  verify_password(plain_password=login_data.password , hashed_password=existing_user.password)
             if password_check:
-                token = create_access_token({"email":login_data.email , "password":login_data.password}) #returns a dictionary
+                token = create_access_token({"email":login_data.email}) #returns a dictionary
                 return {
                     "access_token": token,
                     "token_type": "bearer",
