@@ -1,5 +1,6 @@
 from app.db.database import Base
 from sqlalchemy import Column, DateTime,Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Category(Base):#By Inheriting Base class, you're telling SQLAlchemy that this is a DB Model,
@@ -9,3 +10,4 @@ class Category(Base):#By Inheriting Base class, you're telling SQLAlchemy that t
         name= Column(String, nullable=False)
         owner_id= Column(Integer , ForeignKey("users.id"))
         created_at= Column(DateTime)
+        user = relationship("User" , back_populates="categories")

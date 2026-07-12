@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String , DateTime
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.db.database import Base
-
 
 class User(Base):
     __tablename__="users"
@@ -11,6 +11,8 @@ class User(Base):
     email=Column(String , unique=True, nullable=False, index=True)
     password = Column(String , nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    categories= relationship("Category", back_populates="user")
+
 
 # class UserCreate(BaseModel):
 #     full_name:str
