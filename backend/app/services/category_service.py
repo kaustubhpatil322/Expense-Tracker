@@ -22,7 +22,8 @@ class CategoryService:
          category = self.get_category_by_id(category_id , current_user_id)   
          return self.repository.update_category(category , name, user_id= current_user_id)
     
-    def delete_category(self, category , current_user_id):
+    def delete_category(self, category_id , current_user_id):
+         category = self.get_category_by_id(category_id , current_user_id)
          return self.repository.delete_category(category, user_id=current_user_id)
     
 
