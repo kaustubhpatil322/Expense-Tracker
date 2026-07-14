@@ -6,6 +6,7 @@ from app.models.user import User
 from app.schemas.user import UserLogin
 from app.core.jwt import create_access_token
 
+from fastapi import HTTPException, status
 
 
 class UserService:
@@ -44,9 +45,9 @@ class UserService:
                     "token_type": "bearer",
                 }
             else:
-                return { "msg":"Invalid Credentials"}
+                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Credentials")
         else:
-            return { "msg":"Invalid Credentials"}
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Credentials")
 
 
             
