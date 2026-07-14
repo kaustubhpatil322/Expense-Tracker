@@ -12,6 +12,7 @@ class User(Base):
     password = Column(String , nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     categories= relationship("Category", back_populates="user")
+    expenses = relationship("Expense", back_populates="user")
 
 
 # class UserCreate(BaseModel):

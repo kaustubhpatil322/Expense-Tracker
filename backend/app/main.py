@@ -7,6 +7,7 @@ from app.core.config import settings
 
 from app.models.user import User
 from app.models.category import Category
+from app.models.expense import Expense
 from app.db.database import Base, engine
 
 Base.metadata.create_all(bind=engine)

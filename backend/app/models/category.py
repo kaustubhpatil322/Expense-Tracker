@@ -10,4 +10,5 @@ class Category(Base):#By Inheriting Base class, you're telling SQLAlchemy that t
         name= Column(String, nullable=False)
         user_id= Column(Integer , ForeignKey("users.id") , nullable=False)
         created_at= Column(DateTime)
-        user = relationship("User" , back_populates="categories")
+        user = relationship("User" , back_populates="categories")#one User -> many Categories
+        expenses= relationship("Expense", back_populates="category")#one categry -> many Expenses
