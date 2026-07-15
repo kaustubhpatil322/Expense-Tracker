@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.expense import Expense
+from fastapi import HTTPException, status
 class ExpenseRepository:
     def __init__(self, db:Session):
         self.db = db
@@ -24,6 +25,19 @@ class ExpenseRepository:
             .first()
         )
     
+    def update(self,expense:Expense , expense_id:int, user_id:int):
+        existing_expense = self.get_by_id(expense_id , user_id)
+        if existing_expense:
+            self.db.commit()
+            self.db.refresh(expense)
+        else:
+            raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED, detail="Not Authorised")
+        return expense
+    
+        
+            
+
+        
         
 
     

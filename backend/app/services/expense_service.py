@@ -33,6 +33,16 @@ class ExpenseService:
             return expense
         else:
             raise HTTPException(status_code=status.HTTP_404, detail="Item Not Found")
+        
+    def update_expense(self, expense_create:ExpenseCreate , expense_id:int , current_user_id: int):
+        expense = Expense(
+            amount= expense_create.amount,
+            description = expense_create.description,
+            expense_date = expense_create.expense_date,
+            category_id = expense_create.category_id 
+        )
+        return self.repository.update(expense, expense_id , user_id=current_user_id)
+    
 
     
 

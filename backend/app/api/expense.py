@@ -34,6 +34,15 @@ def get_expense_by_id(expense_id: int,
                       current_user: Annotated[User, Depends(get_current_user)]
     ):
     return expense_service.get_expense_by_id(expense_id , current_user_id= current_user.id)
+
+@router.put("/{expense_id}")
+def update_expense(
+    expense_id: int,
+    expense_create: ExpenseCreate,
+    expense_service: Annotated[ExpenseService, Depends(get_expense_service)],
+    current_user: Annotated[User, Depends(get_current_user)]
+):
+    return expense_service.update_expense(expense_create , expense_id , current_user_id= current_user.id)
                      
 
     
