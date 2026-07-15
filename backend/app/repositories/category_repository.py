@@ -8,15 +8,11 @@ class CategoryRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def create_category( self, category: CategoryCreate , user_id: int):
-        new_category = Category()
-        new_category.name = category.name
-        new_category.user_id = user_id
-        new_category.created_at = datetime.now()
-        self.db.add(new_category)
+    def create_category( self, category: Category , user_id: int):
+        self.db.add(category)
         self.db.commit()
-        self.db.refresh(new_category)
-        return new_category
+        self.db.refresh(category)
+        return category
 
     def get_categories(self, user_id: int):
         return (

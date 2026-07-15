@@ -10,6 +10,20 @@ class ExpenseRepository:
         self.db.refresh(expense)
         return expense
     
+    def get_all(self , user_id:int):
+        return (
+            self.db.query(Expense)
+            .filter(Expense.user_id == user_id)
+            .all()
+        )
+
+    def get_by_id(self, expense_id:int , user_id:int):
+        return (
+            self.db.query(Expense)
+            .filter(Expense.id == expense_id , Expense.user_id==user_id)
+            .first()
+        )
+    
         
 
     

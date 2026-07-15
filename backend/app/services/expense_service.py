@@ -23,4 +23,16 @@ class ExpenseService:
                                 detail="Not Found")
         new_expense.user_id = current_user_id
         return self.repository.create(new_expense)
+    
+    def get_all_expenses(self , current_user_id):
+        return self.repository.get_all(user_id=current_user_id)
+    
+    def get_expense_by_id(self, expense_id:int , current_user_id: int):
+        expense= self.repository.get_by_id(expense_id , current_user_id)
+        if expense:
+            return expense
+        else:
+            raise HTTPException(status_code=status.HTTP_404, detail="Item Not Found")
+
+    
 
