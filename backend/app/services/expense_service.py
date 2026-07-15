@@ -1,0 +1,26 @@
+from sqlalchemy.orm import Session
+from app.repositories.expense_repository import ExpenseRepository
+from app.schemas.expense import ExpenseCreate
+from app.models.expense import Expense
+from app.repositories.category_repository import CategoryRepository
+from fastapi import HTTPException, status
+
+
+class ExpenseService:
+    def __init__(self, db:Session):
+        self.repository = ExpenseRepository(db)
+        self.category_repository = CategoryRepository(db)
+
+    def create_expense(self, expense_create: ExpenseCreate , current_user_id):
+        new_expense = Expense()
+        new_expense.amount = expense_create.amount
+        new_expense.description = expense_create.description
+        new_expense.expense_date = expense_create.expense_date
+        if self.category_repository.get_category_by_id(expense_create.category_id , current_user_id):
+            new_expense.category_id = expense_create.category_id#here this is to ensure that category_id sent by the user is Factually present in db or not
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail="Not Found")
+        new_expense.user_id = current_user_id
+        return self.repository.create(new_expense)
+

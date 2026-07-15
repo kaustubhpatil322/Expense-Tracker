@@ -10,7 +10,7 @@ class Expense(Base):
     description= Column(Text, nullable=True)
     expense_date= Column(Date, nullable=False)
     user_id = Column(Integer , ForeignKey("users.id"), nullable=False)
-    category_id= Column(Integer, ForeignKey("users.id"), nullable=False)
+    category_id= Column(Integer, ForeignKey("categories.id"), nullable=False)
     user = relationship("User" , back_populates="expenses")
     category = relationship("Category" , back_populates="expenses")# one category-> Many expenses
     created_at= Column(DateTime(timezone=True), server_default= func.now())
