@@ -28,8 +28,9 @@ class ExpenseRepository:
     def update(self,expense:Expense , expense_id:int, user_id:int):
         existing_expense = self.get_by_id(expense_id , user_id)
         if existing_expense:
+            existing_expense= expense
             self.db.commit()
-            self.db.refresh(expense)
+            self.db.refresh(existing_expense)
         else:
             raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED, detail="Not Authorised")
         return expense
