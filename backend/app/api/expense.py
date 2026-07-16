@@ -44,7 +44,12 @@ def update_expense(
 ):
     return expense_service.update_expense(expense_create , expense_id , current_user_id= current_user.id)
                      
-
-    
+@router.delete("/{expense_id}")
+def delete_expense(
+    expense_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    expense_service: Annotated[ExpenseService, Depends(get_expense_service)]
+):
+    return expense_service.delete_expense(expense_id, current_user_id=current_user.id)
 
         

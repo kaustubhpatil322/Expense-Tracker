@@ -46,6 +46,13 @@ class ExpenseService:
         
         return self.repository.update(expense)
     
+    def delete_expense(self, expense_id:int, current_user_id: int):
+        expense = self.get_expense_by_id(expense_id , current_user_id)
+        if expense:
+            return self.repository.delete(expense)
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not Found")
+    
 
     
 
