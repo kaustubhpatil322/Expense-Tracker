@@ -10,6 +10,9 @@ class ExpenseService:
     def __init__(self, db:Session):
         self.repository = ExpenseRepository(db)
         self.category_repository = CategoryRepository(db)
+    
+    def check_user_id(self, current_user_id):
+        return self.check_user_id(current_user_id)
 
     def create_expense(self, expense_create: ExpenseCreate , current_user_id):
         new_expense = Expense()
@@ -26,6 +29,8 @@ class ExpenseService:
     
     def get_all_expenses(self , current_user_id):
         return self.repository.get_all(user_id=current_user_id)
+
+    def get_all_by_category_id(self, category_id, user_id)
     
     def get_expense_by_id(self, expense_id:int , current_user_id: int):
         expense= self.repository.get_by_id(expense_id , current_user_id)

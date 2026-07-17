@@ -24,9 +24,14 @@ def create_expense(expense: ExpenseCreate,
     return expense_service.create_expense(expense, current_user.id)
 
 @router.get("/")
-def get_all_expenses(current_user:Annotated[User, Depends(get_current_user)],
-                    expense_service: Annotated[ExpenseService, Depends(get_expense_service)]):
-    return expense_service.get_all_expenses(current_user_id= current_user.id)
+def get_all_expenses(
+        current_user:Annotated[User, Depends(get_current_user)],
+        expense_service: Annotated[ExpenseService, Depends(get_expense_service)],
+        category_id: int | None = None):
+    if not category_id:
+        return expense_service.get_all_expenses(current_user_id= current_user.id)
+    else:
+        return 
 
 @router.get("/{expense_id}")
 def get_expense_by_id(expense_id: int,

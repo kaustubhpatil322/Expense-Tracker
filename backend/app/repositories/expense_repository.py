@@ -11,12 +11,20 @@ class ExpenseRepository:
         self.db.refresh(expense)
         return expense
     
+    def check_user_id(self,Curre)
+    
     def get_all(self , user_id:int):
         return (
             self.db.query(Expense)
             .filter(Expense.user_id == user_id)
             .all()
         )
+
+    def get_all_by_category_id(self, category_id:int , user_id:int):
+        return (self.db.query(Expense)
+                .filter(Expense.category_id == category_id, Expense.user_id == user_id)
+                .all()
+                )
 
     def get_by_id(self, expense_id:int , user_id:int):
         return (
